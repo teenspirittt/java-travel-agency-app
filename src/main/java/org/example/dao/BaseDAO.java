@@ -28,7 +28,7 @@ public abstract class BaseDAO<T> {
         return performQuery(session -> session.get(getEntityClass(), id));
     }
 
-    protected void updateEntity(T entity) {
+    public void updateEntity(T entity) {
         performTransaction(Session::update, entity);
     }
 

@@ -115,8 +115,109 @@ public class ClientPanel extends VBox {
     }
 
     private void updateClient() {
-        // Логика для обновления клиента
-        resultPanel.setResult("Update client button is clicked");
+        // Получение списка клиентов для заполнения ComboBox
+        List<Client> clients = clientDAO.getAllEntities();
+
+        // Создание ComboBox и заполнение его именами клиентов
+        ComboBox<String> clientComboBox = new ComboBox<>(
+                FXCollections.observableArrayList(
+                        clients.stream()
+                                .map(Client::getFullName)
+                                .toList()
+                )
+        );
+        clientComboBox.setPromptText("Select a client");
+
+        // Создание диалогового окна для выбора клиента для обновления
+        Alert dialog = new Alert(Alert.AlertType.CONFIRMATION);
+        dialog.setTitle("Update Client");
+        dialog.setHeaderText("Select a client to update:");
+
+        // Создание сетки для размещения ComboBox
+        GridPane grid = new GridPane();
+        grid.add(clientComboBox, 0, 0);
+        dialog.getDialogPane().setContent(grid);
+
+        // Ожидание нажатия кнопки OK или Отмена
+        Optional<ButtonType> result = dialog.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Получение выбранного клиента из ComboBox
+            String selectedClientName = clientComboBox.getValue();
+
+            if (selectedClientName != null && !selectedClientName.isEmpty()) {
+                // Ваш код для обновления клиента по имени или другому идентификатору
+                Client selectedClient = clients.stream()
+                        .filter(client -> selectedClientName.equals(client.getFullName()))
+                        .findFirst()
+                        .orElse(null);
+
+                if (selectedClient != null) {
+                    // Открытие диалогового окна для внесения изменений
+                    showUpdateClientDialog(selectedClient);
+                } else {
+                    // Оповещение, если клиент не найден
+                    resultPanel.setResult("Client not found for updating");
+                }
+            } else {
+                // В случае, если клиент не выбран
+                resultPanel.setResult("No client selected for updating");
+            }
+        }
+    }
+
+    private void showUpdateClientDialog(Client client) {
+        // Создание диалогового окна для внесения изменений
+        Dialog<Void> updateDialog = new Dialog<>();
+        updateDialog.setTitle("Update Client");
+        updateDialog.setHeaderText("Update client information:");
+
+        // Создание полей ввода
+        TextField fullNameField = new TextField(client.getFullName());
+        TextField phoneField = new TextField(client.getPhone());
+
+        // Добавление DatePicker для выбора даты заказа
+        DatePicker orderDatePicker = new DatePicker();
+        orderDatePicker.setValue(client.getOrderDate().toLocalDateTime().toLocalDate());
+
+        // Создание кнопок OK и Отмена
+        ButtonType updateButton = new ButtonType("Update", ButtonBar.ButtonData.OK_DONE);
+        updateDialog.getDialogPane().getButtonTypes().addAll(updateButton, ButtonType.CANCEL);
+
+        // Создание сетки для размещения полей ввода
+        GridPane grid = new GridPane();
+        grid.add(new Label("Full Name:"), 0, 0);
+        grid.add(fullNameField, 1, 0);
+        grid.add(new Label("Phone:"), 0, 1);
+        grid.add(phoneField, 1, 1);
+        grid.add(new Label("Order Date:"), 0, 2);
+        grid.add(orderDatePicker, 1, 2);
+        updateDialog.getDialogPane().setContent(grid);
+
+        // Установка реакции на нажатие кнопки OK
+        updateDialog.setResultConverter(buttonType -> {
+            if (buttonType == updateButton) {
+                // Ваш код для обновления клиента с использованием введенных данных
+                String newFullName = fullNameField.getText();
+                String newPhone = phoneField.getText();
+                LocalDate newOrderDate = orderDatePicker.getValue();
+
+                // Обновление данных клиента
+                client.setFullName(newFullName);
+                client.setPhone(newPhone);
+                client.setOrderDate(Timestamp.valueOf(newOrderDate.atStartOfDay()));
+
+                // Ваш код для сохранения обновленных данных в базе данных
+                clientDAO.updateEntity(client);
+
+                // Оповещение об успешном обновлении
+                resultPanel.setResult("Client updated successfully");
+            }
+            return null;
+        });
+
+        // Отображение диалогового окна
+        updateDialog.showAndWait();
     }
 
     private void deleteClient() {
