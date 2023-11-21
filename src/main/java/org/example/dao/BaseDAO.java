@@ -20,7 +20,7 @@ public abstract class BaseDAO<T> {
         }
     }
 
-    protected void addEntity(T entity) {
+    public void addEntity(T entity) {
         performTransaction(Session::save, entity);
     }
 
@@ -32,7 +32,7 @@ public abstract class BaseDAO<T> {
         performTransaction(Session::update, entity);
     }
 
-    protected void deleteEntity(Long id) {
+    public void deleteEntity(Long id) {
         performTransaction((session, e) -> {
             T entity = session.get(getEntityClass(), id);
             if (entity != null) {
@@ -41,7 +41,7 @@ public abstract class BaseDAO<T> {
         }, null);
     }
 
-    protected List<T> getAllEntities() {
+    public List<T> getAllEntities() {
         return performQuery(session -> {
             Query<T> query = session.createQuery("FROM " + getEntityClass().getSimpleName(), getEntityClass());
             return query.list();
@@ -53,11 +53,11 @@ public abstract class BaseDAO<T> {
     }
 
 
-    private interface QueryOperation<R> {
+    protected interface QueryOperation<R> {
         R perform(Session session);
     }
 
-    private <R> R performQuery(QueryOperation<R> queryOperation) {
+    protected <R> R performQuery(QueryOperation<R> queryOperation) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return queryOperation.perform(session);
         } catch (Exception e) {

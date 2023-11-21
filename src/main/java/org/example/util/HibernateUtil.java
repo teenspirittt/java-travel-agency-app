@@ -1,6 +1,7 @@
 package org.example.util;
 import org.example.model.*;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
@@ -9,7 +10,6 @@ public class HibernateUtil {
 
     private static SessionFactory buildSessionFactory() {
         try {
-            // Создаем SessionFactory из hibernate.cfg.xml
             Configuration configuration = new Configuration();
             configuration.addAnnotatedClass(Employee.class);
             configuration.addAnnotatedClass(EmployeeTransfer.class);
@@ -21,7 +21,13 @@ public class HibernateUtil {
             configuration.addAnnotatedClass(Aircraft.class);
             configuration.addAnnotatedClass(ClientRoute.class);
 
-            return configuration.buildSessionFactory();
+            configuration.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
+            configuration.setProperty("hibernate.connection.url", "jdbc:postgresql://localhost:5433/tourism_db");
+            configuration.setProperty("hibernate.connection.username", "tour_admin");
+            configuration.setProperty("hibernate.connection.password", "tour");
+            configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+
+            return configuration.buildSessionFactory(new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build());
         } catch (Exception ex) {
             ex.printStackTrace();
             throw new RuntimeException("Ошибка инициализации SessionFactory");
