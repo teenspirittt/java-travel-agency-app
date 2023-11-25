@@ -9,6 +9,7 @@ public class EntityPanel extends VBox {
 
     private final ResultPanel resultPanel;
     private ClientPanel clientPanel;
+    private FlightPanel flightPanel;
 
     public EntityPanel(ResultPanel resultPanel) {
         this.resultPanel = resultPanel;
@@ -50,14 +51,32 @@ public class EntityPanel extends VBox {
             case "Hotel":
                 // Логика для кнопки "Hotel"
                 break;
-            // Добавьте обработку для других кнопок
+            case "Flight":
+                showFlightButtons();
+                break;
         }
     }
 
     private void showClientButtons() {
+        clearButtons();
         if (clientPanel == null) {
             clientPanel = new ClientPanel(resultPanel);
             getChildren().add(clientPanel);
         }
     }
+
+    private void showFlightButtons() {
+        clearButtons();
+        if (flightPanel == null) {
+            flightPanel = new FlightPanel(resultPanel);
+            getChildren().add(flightPanel);
+        }
+    }
+
+    private void clearButtons() {
+        getChildren().removeAll(clientPanel, flightPanel);
+        clientPanel = null;
+        flightPanel = null;
+    }
+
 }
