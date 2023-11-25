@@ -10,6 +10,7 @@ public class EntityPanel extends VBox {
     private final ResultPanel resultPanel;
     private ClientPanel clientPanel;
     private FlightPanel flightPanel;
+    private CarrierPanel carrierPanel;
 
     public EntityPanel(ResultPanel resultPanel) {
         this.resultPanel = resultPanel;
@@ -54,6 +55,9 @@ public class EntityPanel extends VBox {
             case "Flight":
                 showFlightButtons();
                 break;
+            case "Carrier":
+                showCarrierButtons();
+                break;
         }
     }
 
@@ -70,6 +74,14 @@ public class EntityPanel extends VBox {
         if (flightPanel == null) {
             flightPanel = new FlightPanel(resultPanel);
             getChildren().add(flightPanel);
+        }
+    }
+
+    private void showCarrierButtons() {
+        clearButtons();
+        if (carrierPanel == null) {
+            carrierPanel = new CarrierPanel(resultPanel);
+            getChildren().add(carrierPanel);
         }
     }
 

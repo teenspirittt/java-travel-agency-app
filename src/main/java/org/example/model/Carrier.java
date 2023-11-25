@@ -1,5 +1,7 @@
 package org.example.model;
 
+import javafx.beans.value.ObservableValue;
+
 import javax.persistence.*;
 
 @Entity
@@ -24,4 +26,6 @@ public class Carrier {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }

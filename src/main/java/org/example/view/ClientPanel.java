@@ -288,10 +288,6 @@ public class ClientPanel extends VBox implements Panel {
     }
 
     private void setupTableColumns(TableView<Client> clientTable) {
-        TableColumn<Client, String> idColumn = new TableColumn<>("ID");
-        idColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getId())));
-        idColumn.setMinWidth(50); // Минимальная ширина столбца
-
         TableColumn<Client, String> fullNameColumn = new TableColumn<>("Full Name");
         fullNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFullName()));
         fullNameColumn.setMinWidth(150); // Минимальная ширина столбца
@@ -304,7 +300,7 @@ public class ClientPanel extends VBox implements Panel {
         orderDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getOrderDate().toString()));
         orderDateColumn.setMinWidth(150); // Минимальная ширина столбца
 
-        clientTable.getColumns().addAll(idColumn, fullNameColumn, phoneColumn, orderDateColumn);
+        clientTable.getColumns().addAll(fullNameColumn, phoneColumn, orderDateColumn);
 
         clientTable.setMinWidth(1000); // Минимальная ширина таблицы
         clientTable.setMaxWidth(Double.MAX_VALUE); // Максимальная ширина таблицы
