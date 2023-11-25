@@ -128,6 +128,7 @@ public class CarrierPanel extends VBox implements Panel {
                 Carrier selectedCarrier = carriers.stream()
                                 .filter(carrier -> selectedCarrierName.equals(carrier.getName()))
                                         .findFirst().orElse(null);
+                assert selectedCarrier != null;
                 carrierDAO.deleteEntity(selectedCarrier.getId());
 
                 resultPanel.setResult("Carrier deleted successfully");
@@ -205,12 +206,12 @@ public class CarrierPanel extends VBox implements Panel {
 
         TableColumn<Carrier, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        nameColumn.setMinWidth(150); // Минимальная ширина столбца
+        nameColumn.setMinWidth(150);
 
 
         carrierTable.getColumns().addAll(nameColumn);
 
-        carrierTable.setMinWidth(1000); // Минимальная ширина таблицы
-        carrierTable.setMaxWidth(Double.MAX_VALUE); // Максимальная ширина таблицы
+        carrierTable.setMinWidth(1000);
+        carrierTable.setMaxWidth(Double.MAX_VALUE);
     }
 }

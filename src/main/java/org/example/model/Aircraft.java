@@ -5,11 +5,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "aircraft")
 public class Aircraft {
-
+    //todo прочитать про IDENTITY
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //todo прочитать про IDENTITY
+
     @Column(name = "aircraft_type", nullable = false)
     private String aircraftType;
 
