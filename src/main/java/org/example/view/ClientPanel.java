@@ -17,7 +17,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public class ClientPanel extends VBox {
+public class ClientPanel extends VBox implements Panel {
 
     private ResultPanel resultPanel;
     private ClientDAO clientDAO;
@@ -34,19 +34,19 @@ public class ClientPanel extends VBox {
         setPadding(new Insets(10));
         showAllClients();
 
-        Button showAllButton = createButton("Show All");
+        Button showAllButton = Panel.createButton("Show All");
         showAllButton.setOnAction(e -> showAllClients());
 
-        Button updateButton = createButton("Update");
+        Button updateButton = Panel.createButton("Update");
         updateButton.setOnAction(e -> updateClient());
 
-        Button deleteButton = createButton("Delete");
+        Button deleteButton = Panel.createButton("Delete");
         deleteButton.setOnAction(e -> deleteClient());
 
-        Button addButton = createButton("Add");
+        Button addButton = Panel.createButton("Add");
         addButton.setOnAction(e -> addClient());
 
-        Button getByOrderDateButton = createButton("Get by Order Date");
+        Button getByOrderDateButton = Panel.createButton("Get by Order Date");
         getByOrderDateButton.setOnAction(e -> getClientByOrderDate());
 
 
@@ -55,11 +55,7 @@ public class ClientPanel extends VBox {
         getChildren().addAll(buttonsRow);
     }
 
-    private Button createButton(String buttonText) {
-        Button button = new Button(buttonText);
-        button.setMaxWidth(Double.MAX_VALUE);
-        return button;
-    }
+
 
     private void showAllClients() {
         List<Client> clients = clientDAO.getAllEntities();

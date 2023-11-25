@@ -26,7 +26,7 @@ import javafx.collections.ObservableList;
 import java.sql.Timestamp;
 import java.util.Optional;
 
-public class FlightPanel extends VBox {
+public class FlightPanel extends VBox implements Panel{
 
     private ResultPanel resultPanel;
     private FlightDAO flightDAO;
@@ -44,22 +44,22 @@ public class FlightPanel extends VBox {
         showAllFlights();
         setPadding(new Insets(10));
 
-        Button showAllButton = createButton("Show All");
+        Button showAllButton = Panel.createButton("Show All");
         showAllButton.setOnAction(e -> showAllFlights());
 
-        Button updateButton = createButton("Update");
+        Button updateButton = Panel.createButton("Update");
         updateButton.setOnAction(e -> updateFlight());
 
-        Button deleteButton = createButton("Delete");
+        Button deleteButton = Panel.createButton("Delete");
         deleteButton.setOnAction(e -> deleteFlight());
 
-        Button addButton = createButton("Add");
+        Button addButton = Panel.createButton("Add");
         addButton.setOnAction(e -> addFlight());
 
-        Button seatsButton = createButton("Get by Available Seats");
+        Button seatsButton = Panel.createButton("Get by Available Seats");
         seatsButton.setOnAction(e -> getBySeatsFlight());
 
-        Button dateButton = createButton("Get by Departure Date");
+        Button dateButton = Panel.createButton("Get by Departure Date");
         dateButton.setOnAction(e -> getByDateFlight());
 
         HBox buttonsRow = new HBox(10, showAllButton, updateButton, deleteButton, addButton, dateButton, seatsButton);
@@ -67,11 +67,6 @@ public class FlightPanel extends VBox {
         getChildren().addAll(buttonsRow);
     }
 
-    private Button createButton(String buttonText) {
-        Button button = new Button(buttonText);
-        button.setMaxWidth(Double.MAX_VALUE);
-        return button;
-    }
 
     private void getByDateFlight() {
         Alert dialog = new Alert(Alert.AlertType.CONFIRMATION);

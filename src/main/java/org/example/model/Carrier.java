@@ -24,6 +24,4 @@ public class Carrier {
     public void setName(String name) {
         this.name = name;
     }
-
-    
 }
