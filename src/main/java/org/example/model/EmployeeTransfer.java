@@ -2,6 +2,7 @@ package org.example.model;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "employee_transfers")
@@ -25,7 +26,7 @@ public class EmployeeTransfer {
     private String orderNumber;
 
     @Column(name = "order_date")
-    private Date orderDate;
+    private Timestamp orderDate;
 
     public Long getId() {
         return id;
@@ -63,15 +64,11 @@ public class EmployeeTransfer {
         this.orderNumber = orderNumber;
     }
 
-    public Date getOrderDate() {
+    public Timestamp getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(Timestamp orderDate) {
         this.orderDate = orderDate;
     }
-
-    // Другие поля, геттеры и сеттеры
-
-    // Конструкторы
 }

@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import org.example.controller.ResultPanel;
+import org.example.model.EmployeeTransfer;
 
 public class EntityPanel extends VBox {
 
@@ -13,6 +14,7 @@ public class EntityPanel extends VBox {
     private CarrierPanel carrierPanel;
     private AircraftPanel aircraftPanel;
     private EmployeePanel employeePanel;
+    private TransferPanel transferPanel;
 
     public EntityPanel(ResultPanel resultPanel) {
         this.resultPanel = resultPanel;
@@ -66,6 +68,18 @@ public class EntityPanel extends VBox {
             case "Employee":
                 showEmployeeButtons();
                 break;
+
+            case "Transfer":
+                showTransferButtons();
+                break;
+        }
+    }
+
+    private void showTransferButtons() {
+        clearButtons();
+        if (transferPanel == null) {
+            transferPanel = new TransferPanel(resultPanel);
+            getChildren().add(transferPanel);
         }
     }
 
@@ -110,9 +124,13 @@ public class EntityPanel extends VBox {
     }
 
     private void clearButtons() {
-        getChildren().removeAll(clientPanel, flightPanel, carrierPanel, aircraftPanel);
+        getChildren().removeAll(clientPanel, flightPanel, carrierPanel, aircraftPanel, employeePanel, transferPanel);
         clientPanel = null;
         flightPanel = null;
+        carrierPanel = null;
+        aircraftPanel = null;
+        employeePanel = null;
+        transferPanel = null;
     }
 
 }
