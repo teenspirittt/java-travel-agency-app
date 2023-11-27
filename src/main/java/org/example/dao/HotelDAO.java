@@ -14,7 +14,7 @@ public class HotelDAO extends BaseDAO<Hotel> {
     public List<Hotel> getHotelByClass(int hotelClass) {
         return performQuery(session -> {
             Query<Hotel> query = session.createQuery(
-                    "FROM Hotel WHERE class = :hotelClass",
+                    "FROM Hotel WHERE hotelClass = :hotelClass",
                     Hotel.class
             );
             query.setParameter("hotelClass", hotelClass);
