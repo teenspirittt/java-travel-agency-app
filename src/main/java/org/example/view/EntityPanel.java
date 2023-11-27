@@ -16,6 +16,7 @@ public class EntityPanel extends VBox {
     private EmployeePanel employeePanel;
     private TransferPanel transferPanel;
     private HotelPanel hotelPanel;
+    private RoutePanel routePanel;
 
     public EntityPanel(ResultPanel resultPanel) {
         this.resultPanel = resultPanel;
@@ -69,10 +70,20 @@ public class EntityPanel extends VBox {
             case "Employee":
                 showEmployeeButtons();
                 break;
-
             case "Transfer":
                 showTransferButtons();
                 break;
+            case "Route":
+                showRouteButtons();
+                break;
+        }
+    }
+
+    private void showRouteButtons() {
+        clearButtons();
+        if (routePanel == null) {
+            routePanel = new RoutePanel(resultPanel);
+            getChildren().add(routePanel);
         }
     }
 
