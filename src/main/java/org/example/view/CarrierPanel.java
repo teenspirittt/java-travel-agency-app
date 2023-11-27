@@ -129,7 +129,7 @@ public class CarrierPanel extends VBox implements Panel {
                                 .filter(carrier -> selectedCarrierName.equals(carrier.getName()))
                                         .findFirst().orElse(null);
                 assert selectedCarrier != null;
-                carrierDAO.deleteEntity(selectedCarrier.getId());
+                carrierDAO.deleteEntity(selectedCarrier);
 
                 resultPanel.setResult("Carrier deleted successfully");
             } else {

@@ -41,6 +41,12 @@ public abstract class BaseDAO<T> {
         }, null);
     }
 
+    public void deleteEntity(T entity) {
+        performTransaction((session, e) -> {
+            session.delete(entity);
+        }, null);
+    }
+
     public List<T> getAllEntities() {
         return performQuery(session -> {
             Query<T> query = session.createQuery("FROM " + getEntityClass().getSimpleName(), getEntityClass());

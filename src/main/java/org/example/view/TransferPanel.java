@@ -189,7 +189,7 @@ public class TransferPanel extends VBox implements Panel {
                         .orElse(null);
 
                 if (selectedEmployeeTransfer != null) {
-                    employeeTransferDAO.deleteEntity(selectedEmployeeTransfer.getId());
+                    employeeTransferDAO.deleteEntity(selectedEmployeeTransfer);
                     resultPanel.setResult("Employee Transfer deleted successfully");
                 } else {
                     resultPanel.setResult("Employee Transfer not found for deletion");
@@ -247,7 +247,6 @@ public class TransferPanel extends VBox implements Panel {
             Timestamp orderTimestamp = Timestamp.valueOf(orderDate.atStartOfDay());
             String employeeFullName = employeeComboBox.getValue();
 
-            // Find the Employee object corresponding to the selected employee name
             Employee employee = employees.stream()
                     .filter(emp -> employeeFullName.equals(emp.getFullName()))
                     .findFirst()
@@ -338,7 +337,6 @@ public class TransferPanel extends VBox implements Panel {
             selectedEmployeeTransfer.setOrderNumber(newOrderNumber);
             selectedEmployeeTransfer.setOrderDate(Timestamp.valueOf(newOrderDate));
 
-            // Use EmployeeTransferDAO to update the selected Employee Transfer
             employeeTransferDAO.updateEntity(selectedEmployeeTransfer);
 
             resultPanel.setResult("Employee Transfer updated successfully");

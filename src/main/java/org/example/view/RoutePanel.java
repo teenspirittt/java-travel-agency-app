@@ -296,7 +296,7 @@ public class RoutePanel extends VBox implements Panel {
                         .orElse(null);
 
                 if (selectedRoute != null) {
-                    routeDAO.deleteEntity(selectedRoute.getId());
+                    routeDAO.deleteEntity(selectedRoute);
 
                     resultPanel.setResult("Route deleted successfully");
                 } else {

@@ -176,7 +176,7 @@ public class HotelPanel extends VBox implements Panel {
                         .orElse(null);
 
                 if (selectedHotel != null) {
-                    hotelDAO.deleteEntity(selectedHotel.getId());
+                    hotelDAO.deleteEntity(selectedHotel);
 
                     resultPanel.setResult("Hotel deleted successfully");
                 } else {

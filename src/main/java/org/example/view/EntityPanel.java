@@ -17,6 +17,7 @@ public class EntityPanel extends VBox {
     private TransferPanel transferPanel;
     private HotelPanel hotelPanel;
     private RoutePanel routePanel;
+    private ClientRoutePanel crPanel;
 
     public EntityPanel(ResultPanel resultPanel) {
         this.resultPanel = resultPanel;
@@ -76,6 +77,17 @@ public class EntityPanel extends VBox {
             case "Route":
                 showRouteButtons();
                 break;
+            case "Client Route":
+                showCRButtons();
+                break;
+        }
+    }
+
+    private void showCRButtons() {
+        clearButtons();
+        if (crPanel == null) {
+            crPanel = new ClientRoutePanel(resultPanel);
+            getChildren().add(crPanel);
         }
     }
 
@@ -144,7 +156,8 @@ public class EntityPanel extends VBox {
     }
 
     private void clearButtons() {
-        getChildren().removeAll(clientPanel, flightPanel, carrierPanel, aircraftPanel, employeePanel, transferPanel, hotelPanel);
+        getChildren().removeAll(clientPanel, flightPanel, carrierPanel, aircraftPanel,
+                employeePanel, transferPanel, hotelPanel, routePanel, crPanel);
         clientPanel = null;
         flightPanel = null;
         carrierPanel = null;
@@ -152,6 +165,8 @@ public class EntityPanel extends VBox {
         employeePanel = null;
         transferPanel = null;
         hotelPanel = null;
+        routePanel = null;
+        crPanel = null;
     }
 
 }

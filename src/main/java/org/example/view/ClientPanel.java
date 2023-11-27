@@ -221,7 +221,7 @@ public class ClientPanel extends VBox implements Panel {
                         .orElse(null);
 
                 if (selectedClient != null) {
-                    clientDAO.deleteEntity(selectedClient.getId());
+                    clientDAO.deleteEntity(selectedClient);
 
                     resultPanel.setResult("Client deleted successfully");
                 } else {

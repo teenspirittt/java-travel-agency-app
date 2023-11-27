@@ -328,7 +328,7 @@ public class AircraftPanel extends VBox implements Panel {
                         .orElse(null);
 
                 if (selectedAircraft != null) {
-                    aircraftDAO.deleteEntity(selectedAircraft.getId());
+                    aircraftDAO.deleteEntity(selectedAircraft);
 
                     resultPanel.setResult("Aircraft deleted successfully");
                 } else {

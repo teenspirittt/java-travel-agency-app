@@ -36,4 +36,20 @@ public class ClientRoute {
     public void setSeat(String seat) {
         this.seat = seat;
     }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Route getRoute() {
+        return route;
+    }
+
+    public void setRoute(Route route) {
+        this.route = route;
+    }
 }

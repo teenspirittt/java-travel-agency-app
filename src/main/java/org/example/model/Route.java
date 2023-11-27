@@ -94,7 +94,4 @@ public class Route {
         this.employee = employee;
     }
 
-    // Другие поля, геттеры и сеттеры
-
-    // Конструкторы
 }

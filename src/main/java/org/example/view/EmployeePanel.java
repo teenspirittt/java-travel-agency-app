@@ -277,7 +277,7 @@ public class EmployeePanel extends VBox implements Panel {
                         .findFirst().orElse(null);
 
                 if (selectedEmployee != null) {
-                    employeeDAO.deleteEntity(selectedEmployee.getId());
+                    employeeDAO.deleteEntity(selectedEmployee);
                     resultPanel.setResult("Employee deleted successfully");
                 } else {
                     resultPanel.setResult("Employee not found for deletion");
